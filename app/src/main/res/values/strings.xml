@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">EffectiveMobileTest</string>
+
+    <!--Splash-->
+    <string name="welcome">Добро пожаловать!</string>
+
+    <!--Main menu-->
+    <string name="search">Поиск</string>
+    <string name="favorites">Избранное</string>
+    <string name="callbacks">Отклики</string>
+    <string name="messages">Сообщения</string>
+    <string name="profile">Профиль</string>
+
+</resources>

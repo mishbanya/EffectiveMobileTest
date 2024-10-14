@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".presentation.views.MainActivity">
+
+    <LinearLayout
+        android:id="@+id/fragmentHolderId"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/main_menu"
+        app:layout_constraintVertical_bias="0.0"/>
+    <LinearLayout
+        android:id="@+id/main_menu"
+        android:background="@color/shadow"
+        android:weightSum="5"
+        android:layout_width="0dp"
+        android:layout_height="100dp"
+        app:layout_constraintTop_toBottomOf="@+id/fragmentHolderId"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/hug"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:orientation="horizontal">
+        <ImageButton
+            android:layout_weight="1"
+            android:id="@+id/search_button"
+            android:src="@drawable/search_default"
+            android:scaleX="1.5"
+            android:scaleY="1.5"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:contentDescription="@string/search" />
+        <ImageButton
+            android:layout_weight="1"
+            android:id="@+id/favorites_button"
+            android:src="@drawable/heart_default"
+            android:scaleX="1.5"
+            android:scaleY="1.5"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:contentDescription="@string/favorites" />
+        <ImageButton
+            android:layout_weight="1"
+            android:id="@+id/callbacks_button"
+            android:src="@drawable/callbacks_default"
+            android:scaleX="1.5"
+            android:scaleY="1.5"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:contentDescription="@string/callbacks" />
+        <ImageButton
+            android:layout_weight="1"
+            android:id="@+id/messages_button"
+            android:src="@drawable/messages_default"
+            android:scaleX="1.5"
+            android:scaleY="1.5"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:contentDescription="@string/messages" />
+        <ImageButton
+            android:layout_weight="1"
+            android:id="@+id/profile_button"
+            android:src="@drawable/profile_default"
+            android:scaleX="1.5"
+            android:scaleY="1.5"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:contentDescription="@string/profile" />
+    </LinearLayout>
+    <View
+        android:id="@+id/hug"
+        android:background="@color/shadow"
+        android:weightSum="5"
+        android:layout_width="0dp"
+        android:layout_height="47dp"
+        app:layout_constraintTop_toBottomOf="@+id/main_menu"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:orientation="horizontal"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
