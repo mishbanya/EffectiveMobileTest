@@ -25,8 +25,7 @@ class MainActivity : AppCompatActivity(), FragmentChangeListener {
     private val binding by viewBinding(ActivityMainBinding::bind)
 
     private val labels = LinkedList<Pair<ImageButton, TextView>>()
-    private val actives = LinkedList<Drawable>()
-    private val inActives = LinkedList<Drawable>()
+    private val icons = LinkedList<Drawable>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,8 +36,7 @@ class MainActivity : AppCompatActivity(), FragmentChangeListener {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-        setActives()
-        setInActives()
+        setIcons()
         setLabels()
         setLocationLanguage("en")
         startUpLoading()
@@ -117,19 +115,18 @@ class MainActivity : AppCompatActivity(), FragmentChangeListener {
             .replace(R.id.fragmentHolderId, SearchFragment())
             .commit()
     }
-    private fun setActives(){
-        actives.add(getResources().getDrawable(R.drawable.search_active))
-        actives.add(getResources().getDrawable(R.drawable.heart_active))
-        actives.add(getResources().getDrawable(R.drawable.callbacks_default))
-        actives.add(getResources().getDrawable(R.drawable.messages_default))
-        actives.add(getResources().getDrawable(R.drawable.profile_default))
-    }
-    private fun setInActives(){
-        inActives.add(getResources().getDrawable(R.drawable.search_default))
-        inActives.add(getResources().getDrawable(R.drawable.heart_default))
-        inActives.add(getResources().getDrawable(R.drawable.callbacks_default))
-        inActives.add(getResources().getDrawable(R.drawable.messages_default))
-        inActives.add(getResources().getDrawable(R.drawable.profile_default))
+    private fun setIcons(){
+        icons.add(getResources().getDrawable(R.drawable.search_active))
+        icons.add(getResources().getDrawable(R.drawable.heart_active))
+        icons.add(getResources().getDrawable(R.drawable.callbacks_active))
+        icons.add(getResources().getDrawable(R.drawable.messages_default))
+        icons.add(getResources().getDrawable(R.drawable.profile_active))
+
+        icons.add(getResources().getDrawable(R.drawable.profile_default))
+        icons.add(getResources().getDrawable(R.drawable.messages_default))
+        icons.add(getResources().getDrawable(R.drawable.callbacks_default))
+        icons.add(getResources().getDrawable(R.drawable.heart_default))
+        icons.add(getResources().getDrawable(R.drawable.search_default))
     }
     private fun setLabels(){
         labels.add(Pair(binding.searchButton, binding.searchButtonLabel))
@@ -141,10 +138,10 @@ class MainActivity : AppCompatActivity(), FragmentChangeListener {
     private fun updateLabels(id: Int){
         for(i in 0..4){
             if(id==i){
-                labels[i].first.setImageDrawable(actives[i])
+                labels[i].first.setImageDrawable(icons[i])
                 labels[i].second.setTextColor(getResources().getColor(R.color.blue))
             }else{
-                labels[i].first.setImageDrawable(inActives[i])
+                labels[i].first.setImageDrawable(icons[9-i])
                 labels[i].second.setTextColor(getResources().getColor(R.color.gray4))
             }
         }
