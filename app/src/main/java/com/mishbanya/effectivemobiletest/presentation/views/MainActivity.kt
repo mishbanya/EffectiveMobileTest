@@ -38,6 +38,29 @@ class MainActivity : AppCompatActivity(), FragmentChangeListener {
             .commit()
     }
 
+    override fun onFavoritesClicked() {
+        supportFragmentManager.beginTransaction()
+            //.replace(R.id.fragmentHolderId, FavoritesFragment())
+            .commit()
+    }
+
+    override fun onCallbacksClicked() {
+        supportFragmentManager.beginTransaction()
+            //.replace(R.id.fragmentHolderId, CallbacksFragment())
+            .commit()
+    }
+
+    override fun onMessagesClicked() {
+        supportFragmentManager.beginTransaction()
+            //.replace(R.id.fragmentHolderId, MessagesFragment())
+            .commit()
+    }
+
+    override fun onProfileClicked() {
+        supportFragmentManager.beginTransaction()
+            //.replace(R.id.fragmentHolderId, ProfileFragment())
+            .commit()
+    }
 
 
     private fun startUpLoading() {
