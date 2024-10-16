@@ -47,8 +47,8 @@ android {
 androidComponents {
     onVariants {
         it.buildConfigFields.put(
-            "API_BASE_URL", BuildConfigField(
-                "String", "\"${properties["API_BASE_URL"]}\"", "API_BASE_URL"
+            "GET_DATA_URL", BuildConfigField(
+                "String", "\"${properties["GET_DATA_URL"]}\"", "GET_DATA_URL"
             )
         )
     }

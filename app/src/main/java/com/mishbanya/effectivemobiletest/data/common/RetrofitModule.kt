@@ -19,7 +19,6 @@ object RetrofitModule {
     fun provideRetrofitClient(): Retrofit {
         Log.d("Hilt", "Creating Retrofit client instance")
         return Retrofit.Builder()
-            .baseUrl(BuildConfig.API_BASE_URL)
             .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
             .addConverterFactory(GsonConverterFactory.create())
             .build()
