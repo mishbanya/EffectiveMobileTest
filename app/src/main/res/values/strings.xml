@@ -11,4 +11,10 @@
     <string name="messages">Сообщения</string>
     <string name="profile">Профиль</string>
 
+    <!--Search fragment-->
+    <string name="search_tip">Должность, ключевые слова</string>
+    <string name="filter">Фильтр</string>
+    <string name="vacancies_title">Вакансии для вас</string>
+    <string name="vacancies_checkout">Смотреть другие вакансии</string>
+
 </resources>

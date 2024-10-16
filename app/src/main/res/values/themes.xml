@@ -1,16 +1,17 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.EffectiveMobileTest" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+    <style name="Theme.EffectiveMobileTest" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/black</item>
         <item name="colorPrimaryVariant">@color/white</item>
-        <item name="colorOnPrimary">@color/black</item>
+        <item name="colorOnPrimary">@color/blue</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/shadow</item>
         <item name="colorSecondaryVariant">@color/gray3</item>
         <item name="colorOnSecondary">@color/gray4</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
-        <!-- Customize your theme here. -->
+        <!-- Set default font to SF Pro Display -->
+        <item name="android:fontFamily">@font/sfprodisplayregular</item>
     </style>
 </resources>
