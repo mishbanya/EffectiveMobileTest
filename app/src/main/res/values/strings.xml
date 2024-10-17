@@ -19,7 +19,9 @@
 
     <!--Offer item-->
     <string name="offer_text">Текст предложения</string>
-    <string name="button_text">Поднять</string>
+    <string name="offer_info">Поднять</string>
+
+    <!--Vacancy item-->
     <string name="vacancy_looking">Столько-то человек просматривают</string>
     <string name="vacancy_title">Название</string>
     <string name="vacancy_town">Город</string>
@@ -28,7 +30,6 @@
     <string name="vacancy_published_date">Опубликована тогда-то</string>
     <string name="vacancy_callback">Откликнуться</string>
 
-    <!--Vacancy item-->
 
 
 </resources>
