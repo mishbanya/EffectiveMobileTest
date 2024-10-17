@@ -51,6 +51,11 @@ androidComponents {
                 "String", "\"${properties["GET_DATA_URL"]}\"", "GET_DATA_URL"
             )
         )
+        it.buildConfigFields.put(
+            "BASE_URL", BuildConfigField(
+                "String", "\"${properties["BASE_URL"]}\"", "BASE_URL"
+            )
+        )
     }
 }
 

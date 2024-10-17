@@ -1,5 +1,6 @@
 package com.mishbanya.effectivemobiletest.presentation.adapters
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
@@ -24,7 +25,7 @@ class VacanciesAdapter (
         parent: ViewGroup,
         viewType: Int
     ): VacanciesAdapter.VacancyViewHolder {
-        val view = LayoutInflater.from(context).inflate(R.layout.offer_item, parent, false)
+        val view = LayoutInflater.from(context).inflate(R.layout.vacancy_item, parent, false)
         return VacancyViewHolder(view)
     }
 
@@ -34,9 +35,9 @@ class VacanciesAdapter (
     }
     inner class VacancyViewHolder (itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val lookingNumber : TextView = itemView.findViewById(R.id.vacancy_looking_number)
-        private val title : TextView = itemView.findViewById(R.id.vacancy_looking_number)
-        private val town : TextView = itemView.findViewById(R.id.vacancy_looking_number)
-        private val company : TextView = itemView.findViewById(R.id.vacancy_looking_number)
+        private val title : TextView = itemView.findViewById(R.id.vacancy_title)
+        private val town : TextView = itemView.findViewById(R.id.vacancy_town)
+        private val company : TextView = itemView.findViewById(R.id.vacancy_company)
         private val experience : TextView = itemView.findViewById(R.id.vacancy_experience)
         private val publishedDate : TextView = itemView.findViewById(R.id.vacancy_published_date)
 

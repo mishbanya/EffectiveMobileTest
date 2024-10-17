@@ -18,7 +18,7 @@ object SharedPreferenceModule {
     @Provides
     @Singleton
     fun provideSharedPreference(@ApplicationContext context: Context): SharedPreferences {
-        Log.d("SharedPreferences", "Creating SharedPreference instance")
+        Log.d("Hilt", "Creating SharedPreference instance")
         return context.getSharedPreferences(SHARED_PREFERENCE_NAME, Context.MODE_PRIVATE)
     }
 }
