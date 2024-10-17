@@ -7,4 +7,5 @@ interface FragmentChangeListener {
     fun onMessagesClicked()
     fun onProfileClicked()
     fun onVacancyClicked()
+    fun onMoreClicked()
 }

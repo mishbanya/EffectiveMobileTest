@@ -48,16 +48,16 @@ class SearchViewModel @Inject constructor(
                 if (response.isSuccessful) {
                     response.body()?.let { setResponse(it) }
                 } else {
-                    Log.e("loginProcess", "login failed: ${response.code()}")
+                    Log.e("getOffersAndVacancies", "getOffersAndVacancies failed: ${response.code()}")
                     setResponse(null)
                 }
             }, { error ->
-                Log.e("loginProcess", "login failed", error)
+                Log.e("getOffersAndVacancies", "getOffersAndVacancies failed", error)
 
                 if (error is HttpException) {
-                    Log.d("loginProcess", "HTTP Error: ${error.code()}")
+                    Log.d("getOffersAndVacancies", "HTTP Error: ${error.code()}")
                 } else {
-                    Log.d("loginProcess", "Error: ${error.message}")
+                    Log.d("getOffersAndVacancies", "Error: ${error.message}")
                 }
                 setResponse(null)
             })

@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -35,7 +36,6 @@ class SearchFragment : Fragment(), IOnOfferClickListener, IOnVacancyClickListene
     private lateinit var offersAdapter: OffersAdapter
     private lateinit var vacanciesAdapter: VacanciesAdapter
 
-    private var lastRemovePosition: Int = 0
     override fun onAttach(context: Context) {
         super.onAttach(context)
         searchListener = context as FragmentChangeListener
@@ -51,17 +51,20 @@ class SearchFragment : Fragment(), IOnOfferClickListener, IOnVacancyClickListene
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        Log.d("Hilt", "Creating searchViewModel client instance")
-        searchViewModel = ViewModelProvider(this)[SearchViewModel::class.java]
-
         initRecyclerView()
         initSearchViewModel()
         initObserversSearchViewModel()
+        initListenerMoreButton()
 
         loadOffersAndVacancies()
     }
     private fun loadOffersAndVacancies(){
         searchViewModel.getOffersAndVacancies()
+    }
+    private fun initListenerMoreButton(){
+        binding.moreVacanciesButton.setOnClickListener {
+            searchListener.onMoreClicked()
+        }
     }
     override fun onOfferClick(position: Int) {
         searchViewModel.offerClick(requireContext(), position)
@@ -108,7 +111,8 @@ class SearchFragment : Fragment(), IOnOfferClickListener, IOnVacancyClickListene
                 if (data.isEmpty()){
                     activity?.let { showToast(it.getString(R.string.no_vacancies)) }
                 }
-                vacanciesAdapter.reload(data)
+                vacanciesAdapter.reload(data.take(3))
+                binding.moreVacanciesButton.text = "Показть все ${data.count()} вакансий"
             }
             else{
                 showError()

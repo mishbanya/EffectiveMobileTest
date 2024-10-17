@@ -34,5 +34,8 @@
     <string name="vacancy_published_date">Опубликована тогда-то</string>
     <string name="vacancy_callback">Откликнуться</string>
 
+    <!--More vacancies fragment-->
+    <string name="search_vacancies_tip">Должность по ключевым словам</string>
+
 
 </resources>
