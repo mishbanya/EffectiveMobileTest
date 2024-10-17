@@ -28,7 +28,7 @@ class SearchFragment : Fragment(), IOnOfferClickListener, IOnVacancyClickListene
     private val binding by viewBinding(FragmentSearchBinding::bind)
     private lateinit var searchViewModel: SearchViewModel
 
-    private lateinit var searchCloseListener: FragmentChangeListener
+    private lateinit var searchListener: FragmentChangeListener
 
     private lateinit var offersRecyclerView: RecyclerView
     private lateinit var vacanciesRecyclerView: RecyclerView
@@ -38,7 +38,7 @@ class SearchFragment : Fragment(), IOnOfferClickListener, IOnVacancyClickListene
     private var lastRemovePosition: Int = 0
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        searchCloseListener = context as FragmentChangeListener
+        searchListener = context as FragmentChangeListener
     }
 
     override fun onCreateView(
@@ -64,11 +64,11 @@ class SearchFragment : Fragment(), IOnOfferClickListener, IOnVacancyClickListene
         searchViewModel.getOffersAndVacancies()
     }
     override fun onOfferClick(position: Int) {
-        TODO("Not yet implemented")
+        searchViewModel.offerClick(requireContext(), position)
     }
 
     override fun onVacancyClick(position: Int) {
-        TODO("Not yet implemented")
+        searchListener.onVacancyClicked()
     }
 
     override fun onIsFavoriteClick(position: Int) {

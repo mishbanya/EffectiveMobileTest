@@ -108,6 +108,12 @@ class MainActivity : AppCompatActivity(), FragmentChangeListener {
             .commit()
     }
 
+    override fun onVacancyClicked() {
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.fragmentHolderId, VacancyFragment())
+            .commit()
+    }
+
 
     private fun startUpLoading() {
         greetingMessageShow()

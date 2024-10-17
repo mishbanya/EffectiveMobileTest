@@ -1,11 +1,15 @@
 package com.mishbanya.effectivemobiletest.presentation.viewmodels
 
+import android.content.Context
+import android.content.Intent
+import android.net.Uri
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.mishbanya.effectivemobiletest.domain.common.entity.ResponseData
 import com.mishbanya.effectivemobiletest.domain.common.repository.IOffersAndVacanciesRepository
 import com.mishbanya.effectivemobiletest.domain.offers.entity.OfferModel
+import com.mishbanya.effectivemobiletest.domain.offers.repository.IOfferLinkOpenerRepository
 import com.mishbanya.effectivemobiletest.domain.vacancies.entity.VacancyModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
@@ -16,7 +20,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class SearchViewModel @Inject constructor(
-    private val offersAndVacanciesRepository: IOffersAndVacanciesRepository
+    private val offersAndVacanciesRepository: IOffersAndVacanciesRepository,
+    private val offerLinkOpenerRepository: IOfferLinkOpenerRepository
 ) :ViewModel() {
     private val disposables = CompositeDisposable()
     private val _offers = MutableLiveData<List<OfferModel>?>()
@@ -57,6 +62,14 @@ class SearchViewModel @Inject constructor(
                 setResponse(null)
             })
         disposables.add(disposable)
+    }
+
+    fun offerClick(context: Context, position: Int) {
+        val offerList = _offers.value?.toList()
+        if (offerList != null) {
+            val link = offerList[position].link
+            offerLinkOpenerRepository.offerLinkOpen(link, context)
+        }
     }
 
     override fun onCleared() {

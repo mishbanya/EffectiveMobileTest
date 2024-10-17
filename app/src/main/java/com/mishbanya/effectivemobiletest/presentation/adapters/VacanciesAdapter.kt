@@ -43,6 +43,7 @@ class VacanciesAdapter (
 
         private val vacancyButton : Button = itemView.findViewById(R.id.vacancy_button)
         private val isFavorite : ImageView = itemView.findViewById(R.id.vacancy_is_favorite)
+
         init {
             vacancyButton.setOnClickListener {
                 val position = adapterPosition

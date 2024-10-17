@@ -11,6 +11,7 @@
     <string name="callbacks">Отклики</string>
     <string name="messages">Сообщения</string>
     <string name="profile">Профиль</string>
+    <string name="vacancy">Вакансия</string>
 
     <!--Search fragment-->
     <string name="search_tip">Должность, ключевые слова</string>
