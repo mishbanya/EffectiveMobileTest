@@ -44,7 +44,7 @@ class MoreVacanciesFragment: Fragment(), IOnVacancyClickListener {
 
         initRecyclerView()
         initMoreVacanciesViewModel()
-        initObserversSearchViewModel()
+        initObserversMoreVacanciesViewModel()
         initListenerBackButton()
 
         loadVacancies()
@@ -74,7 +74,7 @@ class MoreVacanciesFragment: Fragment(), IOnVacancyClickListener {
         Log.d("Hilt", "Creating MoreVacanciesModel client instance")
         moreVacanciesViewModel = ViewModelProvider(this)[MoreVacanciesViewModel::class.java]
     }
-    private fun initObserversSearchViewModel() {
+    private fun initObserversMoreVacanciesViewModel() {
         moreVacanciesViewModel.vacancies.observe(viewLifecycleOwner){ data->
 
             if (data != null) {

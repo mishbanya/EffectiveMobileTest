@@ -37,5 +37,8 @@
     <!--More vacancies fragment-->
     <string name="search_vacancies_tip">Должность по ключевым словам</string>
 
+    <!--Favorites fragment-->
+    <string name="vacancy_count">1 вакансия</string>
+
 
 </resources>

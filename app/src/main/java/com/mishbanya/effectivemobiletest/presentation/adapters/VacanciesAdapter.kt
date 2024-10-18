@@ -67,6 +67,12 @@ class VacanciesAdapter (
 
             lookingNumber.text = "Сейчас просматривает ${data.lookingNumber} человек"
             publishedDate.text = "Опубликовано ${data.publishedDate}"
+
+            if (data.isFavorite){
+                isFavorite.setImageResource(R.drawable.heart_active)
+            }else{
+                isFavorite.setImageResource(R.drawable.heart_default)
+            }
         }
     }
 
