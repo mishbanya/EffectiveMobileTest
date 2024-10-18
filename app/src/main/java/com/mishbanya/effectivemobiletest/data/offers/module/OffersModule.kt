@@ -18,7 +18,7 @@ object OffersModule {
     @Singleton
     fun provideOfferLinkOpenerRepositoryImpl(
     ): IOfferLinkOpenerRepository {
-        Log.d("Hilt", "Creating IOffersAndVacanciesService client instance")
+        Log.d("Hilt", "Creating provideOfferLinkOpenerRepositoryImpl client instance")
         return OfferLinkOpenerRepositoryImpl()
     }
 }

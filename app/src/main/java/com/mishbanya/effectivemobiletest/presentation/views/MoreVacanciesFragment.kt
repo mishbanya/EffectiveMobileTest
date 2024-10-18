@@ -18,7 +18,9 @@ import com.mishbanya.effectivemobiletest.domain.main.usecase.FragmentChangeListe
 import com.mishbanya.effectivemobiletest.domain.vacancies.usecases.IOnVacancyClickListener
 import com.mishbanya.effectivemobiletest.presentation.adapters.VacanciesAdapter
 import com.mishbanya.effectivemobiletest.presentation.viewmodels.MoreVacanciesViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MoreVacanciesFragment: Fragment(), IOnVacancyClickListener {
     private val binding by viewBinding(FragmentMoreVacanciesBinding::bind)
     private lateinit var moreVacanciesListener: FragmentChangeListener

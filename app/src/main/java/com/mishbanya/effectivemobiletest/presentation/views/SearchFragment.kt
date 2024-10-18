@@ -112,6 +112,7 @@ class SearchFragment : Fragment(), IOnOfferClickListener, IOnVacancyClickListene
                     activity?.let { showToast(it.getString(R.string.no_vacancies)) }
                 }
                 vacanciesAdapter.reload(data.take(3))
+                binding.moreVacanciesButton.visibility = View.VISIBLE
                 binding.moreVacanciesButton.text = "Показть все ${data.count()} вакансий"
             }
             else{

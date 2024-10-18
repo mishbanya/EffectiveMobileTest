@@ -1,4 +1,4 @@
-package com.mishbanya.effectivemobiletest.data.common
+package com.mishbanya.effectivemobiletest.data.common.module
 
 import android.content.Context
 import android.content.SharedPreferences

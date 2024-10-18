@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.mishbanya.effectivemobiletest.domain.common.repository.IOffersAndVacanciesRepository
 import com.mishbanya.effectivemobiletest.domain.vacancies.entity.VacancyModel
+import com.mishbanya.effectivemobiletest.domain.vacancies.repository.IVacanciesGetterRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.disposables.CompositeDisposable
@@ -14,8 +15,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MoreVacanciesViewModel @Inject constructor(
+    private val vacanciesGetterRepositoryImpl: IVacanciesGetterRepository
 ):ViewModel(){
-    private val disposables = CompositeDisposable()
     private val _vacancies = MutableLiveData<List<VacancyModel>?>()
 
     val vacancies: MutableLiveData<List<VacancyModel>?>
@@ -27,12 +28,13 @@ class MoreVacanciesViewModel @Inject constructor(
         }
     }
     fun getVacancies(){
-        disposables.clear()
-        //TODO
-        //disposables.add(disposable)
+        try {
+            setResponse(getVacanciesFromSP())
+        }catch (e: Exception){
+            Log.e("MoreVacanciesViewModel", "Vacancies get failed.", e)
+        }
     }
-    override fun onCleared() {
-        super.onCleared()
-        disposables.clear()
+    private fun getVacanciesFromSP(): List<VacancyModel>?{
+        return vacanciesGetterRepositoryImpl.getVacancies()
     }
 }

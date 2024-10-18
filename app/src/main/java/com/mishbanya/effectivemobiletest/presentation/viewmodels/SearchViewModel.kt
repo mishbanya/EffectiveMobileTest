@@ -1,8 +1,6 @@
 package com.mishbanya.effectivemobiletest.presentation.viewmodels
 
 import android.content.Context
-import android.content.Intent
-import android.net.Uri
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -11,6 +9,8 @@ import com.mishbanya.effectivemobiletest.domain.common.repository.IOffersAndVaca
 import com.mishbanya.effectivemobiletest.domain.offers.entity.OfferModel
 import com.mishbanya.effectivemobiletest.domain.offers.repository.IOfferLinkOpenerRepository
 import com.mishbanya.effectivemobiletest.domain.vacancies.entity.VacancyModel
+import com.mishbanya.effectivemobiletest.domain.vacancies.repository.IVacanciesGetterRepository
+import com.mishbanya.effectivemobiletest.domain.vacancies.repository.IVacanciesSaverRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.disposables.CompositeDisposable
@@ -21,7 +21,9 @@ import javax.inject.Inject
 @HiltViewModel
 class SearchViewModel @Inject constructor(
     private val offersAndVacanciesRepository: IOffersAndVacanciesRepository,
-    private val offerLinkOpenerRepository: IOfferLinkOpenerRepository
+    private val offerLinkOpenerRepository: IOfferLinkOpenerRepository,
+    private val vacanciesGetterRepositoryImpl: IVacanciesGetterRepository,
+    private val vacanciesSaverRepositoryImpl: IVacanciesSaverRepository
 ) :ViewModel() {
     private val disposables = CompositeDisposable()
     private val _offers = MutableLiveData<List<OfferModel>?>()
@@ -35,11 +37,23 @@ class SearchViewModel @Inject constructor(
     private fun setResponse(responseData: ResponseData?) {
         if (responseData != null) {
             _offers.value = responseData.offerModels
-            _vacancies.value = responseData.vacancies
+            if (_vacancies.value.isNullOrEmpty()) {
+                _vacancies.value = responseData.vacancies
+                if(saveVacancies(responseData.vacancies)){
+                    Log.d("VacanciesSaverRepository", "vacancies saved")
+                }
+            }
+        }
+    }
+    private fun tryGettingVacanciesFromSP(){
+        val recievedVacancies = getVacancies()
+        if (!recievedVacancies.isNullOrEmpty()) {
+            _vacancies.value = recievedVacancies
         }
     }
 
     fun getOffersAndVacancies(){
+        tryGettingVacanciesFromSP()
         disposables.clear()
         val disposable = offersAndVacanciesRepository.getOffersAndVacancies()
             .subscribeOn(Schedulers.io())
@@ -64,6 +78,12 @@ class SearchViewModel @Inject constructor(
         disposables.add(disposable)
     }
 
+    private fun saveVacancies(vacancies: List<VacancyModel>?): Boolean {
+        return vacanciesSaverRepositoryImpl.saveVacancies(vacancies)
+    }
+    private fun getVacancies(): List<VacancyModel>?{
+        return vacanciesGetterRepositoryImpl.getVacancies()
+    }
     fun offerClick(context: Context, position: Int) {
         val offerList = _offers.value?.toList()
         if (offerList != null) {

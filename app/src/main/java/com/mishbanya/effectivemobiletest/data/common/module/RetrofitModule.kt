@@ -1,4 +1,4 @@
-package com.mishbanya.effectivemobiletest.data.common
+package com.mishbanya.effectivemobiletest.data.common.module
 
 import android.util.Log
 import com.mishbanya.effectivemobiletest.BuildConfig

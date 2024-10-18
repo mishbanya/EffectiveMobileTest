@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.drawable.Drawable
 import android.os.Bundle
+import android.util.Log
 import android.widget.ImageButton
 import android.widget.TextView
 import android.widget.Toast
@@ -11,10 +12,13 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.lifecycle.ViewModelProvider
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.mishbanya.effectivemobiletest.R
 import com.mishbanya.effectivemobiletest.databinding.ActivityMainBinding
 import com.mishbanya.effectivemobiletest.domain.main.usecase.FragmentChangeListener
+import com.mishbanya.effectivemobiletest.presentation.viewmodels.MainViewModel
+import com.mishbanya.effectivemobiletest.presentation.viewmodels.SearchViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.LinkedList
 import java.util.Locale
@@ -23,6 +27,7 @@ import java.util.Locale
 @SuppressLint("UseCompatLoadingForDrawables")
 class MainActivity : AppCompatActivity(), FragmentChangeListener {
     private val binding by viewBinding(ActivityMainBinding::bind)
+    private lateinit var mainViewModel: MainViewModel
 
     private val labels = LinkedList<Pair<ImageButton, TextView>>()
     private val icons = LinkedList<Drawable>()
@@ -39,6 +44,8 @@ class MainActivity : AppCompatActivity(), FragmentChangeListener {
         setIcons()
         setLabels()
         setLocationLanguage("en")
+        initMainViewModel()
+        mainViewModel.clearVacancies() //for testing
         startUpLoading()
 
         initListenerSearchButton()
@@ -46,6 +53,10 @@ class MainActivity : AppCompatActivity(), FragmentChangeListener {
         initListenerCallbacksButton()
         initListenerMessagesButton()
         initListenerProfileButton()
+    }
+    private fun initMainViewModel() {
+        Log.d("Hilt", "Creating MainViewMode client instance")
+        mainViewModel = ViewModelProvider(this)[MainViewModel::class.java]
     }
     private fun initListenerSearchButton(){
         labels[0].first.setOnClickListener {
@@ -158,6 +169,7 @@ class MainActivity : AppCompatActivity(), FragmentChangeListener {
             }
         }
     }
+
     private fun setLocationLanguage(language: String){
         val context: Context = applicationContext
         context.resources.configuration.setLocale(Locale(language))
