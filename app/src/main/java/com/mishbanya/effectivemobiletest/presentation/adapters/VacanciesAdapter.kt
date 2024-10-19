@@ -65,7 +65,11 @@ class VacanciesAdapter (
             company.text = data.company
             experience.text = data.experienceModel.previewText
 
-            lookingNumber.text = "Сейчас просматривает ${data.lookingNumber} человек"
+            if(data.lookingNumber!=null) {
+                lookingNumber.text = "Сейчас просматривает ${data.lookingNumber} человек"
+            }else{
+                lookingNumber.visibility = View.INVISIBLE
+            }
             publishedDate.text = "Опубликовано ${data.publishedDate}"
 
             if (data.isFavorite){

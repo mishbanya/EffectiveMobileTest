@@ -75,7 +75,7 @@ class SearchFragment : Fragment(), IOnOfferClickListener, IOnVacancyClickListene
     }
 
     override fun onIsFavoriteClick(position: Int) {
-        TODO("Not yet implemented")
+        searchViewModel.changeFavoriteness(position)
     }
     private fun initRecyclerView(){
         offersRecyclerView = binding.offersRv

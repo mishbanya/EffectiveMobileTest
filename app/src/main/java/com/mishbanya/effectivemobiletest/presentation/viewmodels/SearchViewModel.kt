@@ -9,6 +9,7 @@ import com.mishbanya.effectivemobiletest.domain.common.repository.IOffersAndVaca
 import com.mishbanya.effectivemobiletest.domain.offers.entity.OfferModel
 import com.mishbanya.effectivemobiletest.domain.offers.repository.IOfferLinkOpenerRepository
 import com.mishbanya.effectivemobiletest.domain.vacancies.entity.VacancyModel
+import com.mishbanya.effectivemobiletest.domain.vacancies.repository.IChangeVacancyFavoritenessRepository
 import com.mishbanya.effectivemobiletest.domain.vacancies.repository.IVacanciesGetterRepository
 import com.mishbanya.effectivemobiletest.domain.vacancies.repository.IVacanciesSaverRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -23,7 +24,8 @@ class SearchViewModel @Inject constructor(
     private val offersAndVacanciesRepository: IOffersAndVacanciesRepository,
     private val offerLinkOpenerRepository: IOfferLinkOpenerRepository,
     private val vacanciesGetterRepositoryImpl: IVacanciesGetterRepository,
-    private val vacanciesSaverRepositoryImpl: IVacanciesSaverRepository
+    private val vacanciesSaverRepositoryImpl: IVacanciesSaverRepository,
+    private val changeVacancyFavoritenessRepository: IChangeVacancyFavoritenessRepository
 ) :ViewModel() {
     private val disposables = CompositeDisposable()
     private val _offers = MutableLiveData<List<OfferModel>?>()
@@ -43,6 +45,11 @@ class SearchViewModel @Inject constructor(
                     Log.d("VacanciesSaverRepository", "vacancies saved")
                 }
             }
+        }
+    }
+    private fun setVacancies(vacancies: List<VacancyModel>?) {
+        if (vacancies != null) {
+            _vacancies.value = vacancies
         }
     }
     private fun tryGettingVacanciesFromSP(){
@@ -83,6 +90,11 @@ class SearchViewModel @Inject constructor(
     }
     private fun getVacancies(): List<VacancyModel>?{
         return vacanciesGetterRepositoryImpl.getVacancies()
+    }
+    fun changeFavoriteness(position: Int){
+        val vacancyList = _vacancies.value?.toList()
+        vacancyList?.get(position)?.let { changeVacancyFavoritenessRepository.changeFavoriteness(it.id) }
+        setVacancies(getVacancies())
     }
     fun offerClick(context: Context, position: Int) {
         val offerList = _offers.value?.toList()

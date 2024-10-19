@@ -7,6 +7,7 @@ import com.mishbanya.effectivemobiletest.domain.common.entity.ResponseData
 import com.mishbanya.effectivemobiletest.domain.common.repository.IOffersAndVacanciesRepository
 import com.mishbanya.effectivemobiletest.domain.offers.entity.OfferModel
 import com.mishbanya.effectivemobiletest.domain.vacancies.entity.VacancyModel
+import com.mishbanya.effectivemobiletest.domain.vacancies.repository.IChangeVacancyFavoritenessRepository
 import com.mishbanya.effectivemobiletest.domain.vacancies.repository.IVacanciesGetterRepository
 import com.mishbanya.effectivemobiletest.domain.vacancies.repository.IVacanciesSaverRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -20,7 +21,8 @@ import javax.inject.Inject
 class FavoritesViewModel @Inject constructor(
     private val offersAndVacanciesRepository: IOffersAndVacanciesRepository,
     private val vacanciesGetterRepositoryImpl: IVacanciesGetterRepository,
-    private val vacanciesSaverRepositoryImpl: IVacanciesSaverRepository
+    private val vacanciesSaverRepositoryImpl: IVacanciesSaverRepository,
+    private val changeVacancyFavoritenessRepository: IChangeVacancyFavoritenessRepository
 ) :ViewModel() {
     private val disposables = CompositeDisposable()
     private val _vacancies = MutableLiveData<List<VacancyModel>?>()
@@ -78,7 +80,11 @@ class FavoritesViewModel @Inject constructor(
             })
         disposables.add(disposable)
     }
-
+    fun changeFavoriteness(position: Int){
+        val vacancyList = _vacancies.value?.toList()
+        vacancyList?.get(position)?.let { changeVacancyFavoritenessRepository.changeFavoriteness(it.id) }
+        setVacancies(getVacanciesFromSP())
+    }
     private fun saveVacanciesInSP(vacancies: List<VacancyModel>?): Boolean {
         return vacanciesSaverRepositoryImpl.saveVacancies(vacancies)
     }

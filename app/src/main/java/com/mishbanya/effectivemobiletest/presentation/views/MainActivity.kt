@@ -45,7 +45,7 @@ class MainActivity : AppCompatActivity(), FragmentChangeListener {
         setLabels()
         setLocationLanguage("en")
         initMainViewModel()
-        mainViewModel.clearVacancies() //for testing
+        //mainViewModel.clearVacancies() //for testing
         startUpLoading()
 
         initListenerSearchButton()

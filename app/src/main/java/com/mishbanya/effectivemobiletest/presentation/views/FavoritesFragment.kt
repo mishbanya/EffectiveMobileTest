@@ -60,7 +60,7 @@ class FavoritesFragment : Fragment(), IOnVacancyClickListener {
     }
 
     override fun onIsFavoriteClick(position: Int) {
-        TODO("Not yet implemented")
+        favoritesViewModel.changeFavoriteness(position)
     }
     private fun initRecyclerView(){
         favoriteVacanciesRecyclerView = binding.favoriteVacanciesRv

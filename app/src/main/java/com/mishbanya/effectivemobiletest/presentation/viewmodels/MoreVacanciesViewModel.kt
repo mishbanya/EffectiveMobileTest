@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.mishbanya.effectivemobiletest.domain.common.repository.IOffersAndVacanciesRepository
 import com.mishbanya.effectivemobiletest.domain.vacancies.entity.VacancyModel
+import com.mishbanya.effectivemobiletest.domain.vacancies.repository.IChangeVacancyFavoritenessRepository
 import com.mishbanya.effectivemobiletest.domain.vacancies.repository.IVacanciesGetterRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
@@ -15,7 +16,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MoreVacanciesViewModel @Inject constructor(
-    private val vacanciesGetterRepositoryImpl: IVacanciesGetterRepository
+    private val vacanciesGetterRepositoryImpl: IVacanciesGetterRepository,
+    private val changeVacancyFavoritenessRepository: IChangeVacancyFavoritenessRepository
 ):ViewModel(){
     private val _vacancies = MutableLiveData<List<VacancyModel>?>()
 
@@ -26,6 +28,11 @@ class MoreVacanciesViewModel @Inject constructor(
         if (responseData != null) {
             _vacancies.value = responseData
         }
+    }
+    fun changeFavoriteness(position: Int){
+        val vacancyList = _vacancies.value?.toList()
+        vacancyList?.get(position)?.let { changeVacancyFavoritenessRepository.changeFavoriteness(it.id) }
+        setResponse(getVacanciesFromSP())
     }
     fun getVacancies(){
         try {
