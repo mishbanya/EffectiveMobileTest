@@ -5,6 +5,7 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.mishbanya.effectivemobiletest.domain.common.entity.ResponseData
+import com.mishbanya.effectivemobiletest.domain.common.repository.IMultipleLangRepository
 import com.mishbanya.effectivemobiletest.domain.common.repository.IOffersAndVacanciesRepository
 import com.mishbanya.effectivemobiletest.domain.offers.entity.OfferModel
 import com.mishbanya.effectivemobiletest.domain.offers.repository.IOfferLinkOpenerRepository
@@ -25,7 +26,8 @@ class SearchViewModel @Inject constructor(
     private val offerLinkOpenerRepository: IOfferLinkOpenerRepository,
     private val vacanciesGetterRepositoryImpl: IVacanciesGetterRepository,
     private val vacanciesSaverRepositoryImpl: IVacanciesSaverRepository,
-    private val changeVacancyFavoritenessRepository: IChangeVacancyFavoritenessRepository
+    private val changeVacancyFavoritenessRepository: IChangeVacancyFavoritenessRepository,
+    private val multipleLangRepository: IMultipleLangRepository
 ) :ViewModel() {
     private val disposables = CompositeDisposable()
     private val _offers = MutableLiveData<List<OfferModel>?>()
@@ -84,7 +86,9 @@ class SearchViewModel @Inject constructor(
             })
         disposables.add(disposable)
     }
-
+    fun countMultipleVacancies(count: Int): String{
+        return multipleLangRepository.multipleVacanciesLang(count)
+    }
     private fun saveVacancies(vacancies: List<VacancyModel>?): Boolean {
         return vacanciesSaverRepositoryImpl.saveVacancies(vacancies)
     }

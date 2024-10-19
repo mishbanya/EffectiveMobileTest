@@ -22,6 +22,7 @@ import com.mishbanya.effectivemobiletest.presentation.adapters.OffersAdapter
 import com.mishbanya.effectivemobiletest.presentation.adapters.VacanciesAdapter
 import com.mishbanya.effectivemobiletest.presentation.viewmodels.SearchViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class SearchFragment : Fragment(), IOnOfferClickListener, IOnVacancyClickListener {
@@ -34,7 +35,8 @@ class SearchFragment : Fragment(), IOnOfferClickListener, IOnVacancyClickListene
     private lateinit var offersRecyclerView: RecyclerView
     private lateinit var vacanciesRecyclerView: RecyclerView
     private lateinit var offersAdapter: OffersAdapter
-    private lateinit var vacanciesAdapter: VacanciesAdapter
+    @Inject
+    lateinit var vacanciesAdapter: VacanciesAdapter
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -85,7 +87,7 @@ class SearchFragment : Fragment(), IOnOfferClickListener, IOnVacancyClickListene
 
         vacanciesRecyclerView = binding.vacanciesRv
         vacanciesRecyclerView.layoutManager = LinearLayoutManager(context)
-        vacanciesAdapter = VacanciesAdapter(requireContext(),this)
+        vacanciesAdapter.setContextAndListener(requireContext(), this)
         vacanciesRecyclerView.adapter = vacanciesAdapter
     }
     private fun initSearchViewModel() {
@@ -113,7 +115,7 @@ class SearchFragment : Fragment(), IOnOfferClickListener, IOnVacancyClickListene
                 }
                 vacanciesAdapter.reload(data.take(3))
                 binding.moreVacanciesButton.visibility = View.VISIBLE
-                binding.moreVacanciesButton.text = "Показть все ${data.count()} вакансий"
+                binding.moreVacanciesButton.text = "Ещё ${searchViewModel.countMultipleVacancies(data.count())}"
             }
             else{
                 showError()

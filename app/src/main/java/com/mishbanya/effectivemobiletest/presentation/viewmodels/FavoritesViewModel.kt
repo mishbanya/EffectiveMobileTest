@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.mishbanya.effectivemobiletest.domain.common.entity.ResponseData
+import com.mishbanya.effectivemobiletest.domain.common.repository.IMultipleLangRepository
 import com.mishbanya.effectivemobiletest.domain.common.repository.IOffersAndVacanciesRepository
 import com.mishbanya.effectivemobiletest.domain.offers.entity.OfferModel
 import com.mishbanya.effectivemobiletest.domain.vacancies.entity.VacancyModel
@@ -22,7 +23,8 @@ class FavoritesViewModel @Inject constructor(
     private val offersAndVacanciesRepository: IOffersAndVacanciesRepository,
     private val vacanciesGetterRepositoryImpl: IVacanciesGetterRepository,
     private val vacanciesSaverRepositoryImpl: IVacanciesSaverRepository,
-    private val changeVacancyFavoritenessRepository: IChangeVacancyFavoritenessRepository
+    private val changeVacancyFavoritenessRepository: IChangeVacancyFavoritenessRepository,
+    private val multipleLangRepository: IMultipleLangRepository
 ) :ViewModel() {
     private val disposables = CompositeDisposable()
     private val _vacancies = MutableLiveData<List<VacancyModel>?>()
@@ -79,6 +81,9 @@ class FavoritesViewModel @Inject constructor(
                 setVacancies(null)
             })
         disposables.add(disposable)
+    }
+    fun countMultipleVacancies(count: Int): String{
+        return multipleLangRepository.multipleVacanciesLang(count)
     }
     fun changeFavoriteness(position: Int){
         val vacancyList = _vacancies.value?.toList()

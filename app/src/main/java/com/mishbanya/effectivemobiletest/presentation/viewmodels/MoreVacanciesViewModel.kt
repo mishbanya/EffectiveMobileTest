@@ -3,6 +3,7 @@ package com.mishbanya.effectivemobiletest.presentation.viewmodels
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.mishbanya.effectivemobiletest.domain.common.repository.IMultipleLangRepository
 import com.mishbanya.effectivemobiletest.domain.common.repository.IOffersAndVacanciesRepository
 import com.mishbanya.effectivemobiletest.domain.vacancies.entity.VacancyModel
 import com.mishbanya.effectivemobiletest.domain.vacancies.repository.IChangeVacancyFavoritenessRepository
@@ -17,7 +18,8 @@ import javax.inject.Inject
 @HiltViewModel
 class MoreVacanciesViewModel @Inject constructor(
     private val vacanciesGetterRepositoryImpl: IVacanciesGetterRepository,
-    private val changeVacancyFavoritenessRepository: IChangeVacancyFavoritenessRepository
+    private val changeVacancyFavoritenessRepository: IChangeVacancyFavoritenessRepository,
+    private val multipleLangRepository: IMultipleLangRepository
 ):ViewModel(){
     private val _vacancies = MutableLiveData<List<VacancyModel>?>()
 
@@ -33,6 +35,9 @@ class MoreVacanciesViewModel @Inject constructor(
         val vacancyList = _vacancies.value?.toList()
         vacancyList?.get(position)?.let { changeVacancyFavoritenessRepository.changeFavoriteness(it.id) }
         setResponse(getVacanciesFromSP())
+    }
+    fun countMultipleVacancies(count: Int): String{
+        return multipleLangRepository.multipleVacanciesLang(count)
     }
     fun getVacancies(){
         try {

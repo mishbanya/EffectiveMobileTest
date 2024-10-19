@@ -1,6 +1,5 @@
 package com.mishbanya.effectivemobiletest.presentation.adapters
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
@@ -12,15 +11,22 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.mishbanya.effectivemobiletest.R
+import com.mishbanya.effectivemobiletest.domain.common.repository.IMultipleLangRepository
 import com.mishbanya.effectivemobiletest.domain.vacancies.entity.VacancyModel
 import com.mishbanya.effectivemobiletest.domain.vacancies.usecases.IOnVacancyClickListener
+import javax.inject.Inject
 
-class VacanciesAdapter (
-    private val context: Context,
-    private val listener: IOnVacancyClickListener
+class VacanciesAdapter @Inject constructor(
+    private val multipleLangRepository: IMultipleLangRepository
 ) : ListAdapter<VacancyModel, VacanciesAdapter.VacancyViewHolder>(VacancyDiffCallback()) {
 
+    private lateinit var context: Context
+    private lateinit var listener: IOnVacancyClickListener
 
+    fun setContextAndListener(context: Context, listener: IOnVacancyClickListener) {
+        this.context = context
+        this.listener = listener
+    }
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
@@ -66,7 +72,7 @@ class VacanciesAdapter (
             experience.text = data.experienceModel.previewText
 
             if(data.lookingNumber!=null) {
-                lookingNumber.text = "Сейчас просматривает ${data.lookingNumber} человек"
+                lookingNumber.text = "Сейчас просматривает ${multipleLangRepository.multiplePeopleLang(data.lookingNumber)}"
             }else{
                 lookingNumber.visibility = View.INVISIBLE
             }

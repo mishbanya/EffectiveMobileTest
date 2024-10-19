@@ -19,14 +19,15 @@ import com.mishbanya.effectivemobiletest.domain.vacancies.usecases.IOnVacancyCli
 import com.mishbanya.effectivemobiletest.presentation.adapters.VacanciesAdapter
 import com.mishbanya.effectivemobiletest.presentation.viewmodels.MoreVacanciesViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class MoreVacanciesFragment: Fragment(), IOnVacancyClickListener {
     private val binding by viewBinding(FragmentMoreVacanciesBinding::bind)
     private lateinit var moreVacanciesListener: FragmentChangeListener
-
     private lateinit var vacanciesRecyclerView: RecyclerView
-    private lateinit var vacanciesAdapter: VacanciesAdapter
+    @Inject
+    lateinit var vacanciesAdapter: VacanciesAdapter
     private lateinit var moreVacanciesViewModel: MoreVacanciesViewModel
 
     override fun onAttach(context: Context) {
@@ -67,7 +68,7 @@ class MoreVacanciesFragment: Fragment(), IOnVacancyClickListener {
     private fun initRecyclerView(){
         vacanciesRecyclerView = binding.vacanciesRv
         vacanciesRecyclerView.layoutManager = LinearLayoutManager(context)
-        vacanciesAdapter = VacanciesAdapter(requireContext(),this)
+        vacanciesAdapter.setContextAndListener(requireContext(), this)
         vacanciesRecyclerView.adapter = vacanciesAdapter
     }
     private fun initMoreVacanciesViewModel() {
@@ -82,7 +83,7 @@ class MoreVacanciesFragment: Fragment(), IOnVacancyClickListener {
                     activity?.let { showToast(it.getString(R.string.no_vacancies)) }
                 }
                 vacanciesAdapter.reload(data)
-                binding.vacanciesCount.text = "${vacanciesAdapter.itemCount} вакансий"
+                binding.vacanciesCount.text = "${moreVacanciesViewModel.countMultipleVacancies(data.count())}"
             }
             else{
                 showError()

@@ -21,6 +21,7 @@ import com.mishbanya.effectivemobiletest.presentation.viewmodels.FavoritesViewMo
 import com.mishbanya.effectivemobiletest.presentation.viewmodels.MoreVacanciesViewModel
 import com.mishbanya.effectivemobiletest.presentation.viewmodels.SearchViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class FavoritesFragment : Fragment(), IOnVacancyClickListener {
@@ -29,7 +30,8 @@ class FavoritesFragment : Fragment(), IOnVacancyClickListener {
 
     private lateinit var favoriteVacanciesListener: FragmentChangeListener
     private lateinit var favoriteVacanciesRecyclerView: RecyclerView
-    private lateinit var favoriteVacanciesAdapter: VacanciesAdapter
+    @Inject
+    lateinit var favoriteVacanciesAdapter: VacanciesAdapter
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -65,7 +67,7 @@ class FavoritesFragment : Fragment(), IOnVacancyClickListener {
     private fun initRecyclerView(){
         favoriteVacanciesRecyclerView = binding.favoriteVacanciesRv
         favoriteVacanciesRecyclerView.layoutManager = LinearLayoutManager(context)
-        favoriteVacanciesAdapter = VacanciesAdapter(requireContext(),this)
+        favoriteVacanciesAdapter.setContextAndListener(requireContext(), this)
         favoriteVacanciesRecyclerView.adapter = favoriteVacanciesAdapter
     }
     private fun initFavoritesViewModel() {
@@ -80,7 +82,7 @@ class FavoritesFragment : Fragment(), IOnVacancyClickListener {
                     activity?.let { showToast(it.getString(R.string.no_vacancies)) }
                 }
                 favoriteVacanciesAdapter.reload(data)
-                binding.favoriteVacanciesCount.text = "${favoriteVacanciesAdapter.itemCount} вакансий"
+                binding.favoriteVacanciesCount.text = "${favoritesViewModel.countMultipleVacancies(data.count())}"
             }
             else{
                 showError()
