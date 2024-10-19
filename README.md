@@ -1,7 +1,7 @@
-Degtyarev M.S.
-@mishbanya
-test project for EffectiveMobile
-19.10.2024
+Degtyarev M.S.  
+@mishbanya  
+test project for EffectiveMobile  
+19.10.2024  
 
 # ТЗ
 ## Общая информация
