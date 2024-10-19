@@ -86,7 +86,7 @@ class FavoritesViewModel @Inject constructor(
         return multipleLangRepository.multipleVacanciesLang(count)
     }
     fun changeFavoriteness(position: Int){
-        val vacancyList = _vacancies.value?.toList()
+        val vacancyList = _favoriteVacancies.value?.toList()
         vacancyList?.get(position)?.let { changeVacancyFavoritenessRepository.changeFavoriteness(it.id) }
         setVacancies(getVacanciesFromSP())
     }
